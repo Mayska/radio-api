@@ -1,5 +1,8 @@
 {
     "version": 2,
+    "env": {
+        "DATABASE_URL": "file:./dev.db"
+    },
     "builds": [
         {
             "src": "src/main.ts",
