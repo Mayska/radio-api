@@ -8,7 +8,7 @@ export class AppController {
     private readonly appService: AppService) { }
 
   @Get()
-  async getHello(): Promise<string> {
+  async getHello(): Promise<any> {
     return this.appService.getHello();
   }
 }
