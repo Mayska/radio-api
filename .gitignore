@@ -27,9 +27,6 @@ lerna-debug.log*
 .settings/
 *.sublime-workspace
 
-#bdd
-/prisma/dev.db
-
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json
