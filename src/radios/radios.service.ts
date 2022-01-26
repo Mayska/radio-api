@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import {
-    Radios, Prisma
+    Radios, Prisma, prisma
 } from '@prisma/client';
+import { env } from 'process';
 
+const URL_ICON_RADIO = env.URL_ICON_RADIO;
 
 const createRadioAndPost = (
     name: string,
@@ -24,8 +26,9 @@ export class RadiosService {
 
 
     async createRadio(data: Prisma.RadiosCreateInput): Promise<Radios> {
+        data.url_img === '' ? data.url_img = URL_ICON_RADIO : ''
         return this.prisma.radios.create({
-            data: createRadioAndPost(data.name, data.url_flux, data.url_img)
+            data: createRadioAndPost(data.name, data.url_flux, data.url_img === '' ? URL_ICON_RADIO : data.url_img)
         });
     }
 
@@ -33,28 +36,43 @@ export class RadiosService {
         return this.prisma.radios.findMany();
     };
 
-    async findAllOrderBy(by: string): Promise<Radios[] | null> {
-        let orderBy: Promise<Radios[] | null>
-        if (by == 'desc') {
-            orderBy = this.prisma.radios.findMany({
-                orderBy: [
-                    {
-                        name: 'desc',
-                    },
-                ],
-            });
-
-        } else {
-            orderBy = this.prisma.radios.findMany({
-                orderBy: [
-                    {
-                        name: 'asc',
-                    },
-                ],
-
-            })
-        }
-        return orderBy
+    async findOne(id: number): Promise<Radios> {
+        return this.prisma.radios.findFirst({
+            where: {
+                id: id
+            }
+        });
     };
 
+    async findAllOrderBy(by: string): Promise<Radios[] | null> {
+        return this.prisma.radios.findMany({
+            orderBy: [
+                {
+                    name: by === 'desc' ? 'desc' : 'asc',
+                },
+            ],
+
+        })
+    };
+
+    async updateRadio(id: number, patchData: Prisma.RadiosCreateInput): Promise<Radios | null> {
+        return this.prisma.radios.update({
+            where: {
+                id: id,
+            },
+            data: {
+                name: patchData.name,
+                url_flux: patchData.url_flux,
+                url_img: patchData.url_img === '' ? patchData.url_img = URL_ICON_RADIO : patchData.url_img
+            }
+        })
+    };
+
+    async deleteRadio(id: number): Promise<Radios | null> {
+        return this.prisma.radios.delete({
+            where: {
+                id: id
+            }
+        })
+    };
 }
