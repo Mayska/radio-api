@@ -28,7 +28,7 @@ lerna-debug.log*
 *.sublime-workspace
 
 #bdd
-/prisma/*.db
+/prisma/dev.db
 
 # IDE - VSCode
 .vscode/*
