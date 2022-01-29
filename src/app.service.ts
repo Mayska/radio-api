@@ -11,6 +11,7 @@ var info: any = [{
         id: 'string',
         name: 'string',
         url_flux: 'string',
+        url_flux_secondary: 'string',
         url_img: 'string',
       },
     }, {
@@ -22,6 +23,7 @@ var info: any = [{
         id: 'string',
         name: 'string',
         url_flux: 'string',
+        url_flux_secondary: 'string',
         url_img: 'string',
       },
     }, {
@@ -33,6 +35,7 @@ var info: any = [{
         id: 'string',
         name: 'string',
         url_flux: 'string',
+        url_flux_secondary: 'string',
         url_img: 'string',
       },
     }],
@@ -43,6 +46,7 @@ var info: any = [{
       param_body: {
         name: 'string',
         url_flux: 'string',
+        url_flux_secondary: 'string',
         url_img: 'string ou null',
       }
     }],
@@ -54,6 +58,7 @@ var info: any = [{
       param_body: {
         name: 'string',
         url_flux: 'string',
+        url_flux_secondary: 'string',
         url_img: 'string ou null',
       }
     }],

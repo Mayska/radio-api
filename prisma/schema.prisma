@@ -11,8 +11,18 @@ datasource db {
 }
 
 model Radios {
+  id                 Int     @id @default(autoincrement())
+  name               String
+  url_flux           String
+  url_flux_secondary String?
+  url_img            String?
+}
+
+model Home {
   id       Int     @id @default(autoincrement())
   name     String
-  url_flux String
+  category String
+  url      String
   url_img  String?
+  actif    Boolean @default(true)
 }

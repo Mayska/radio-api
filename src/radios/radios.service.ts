@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import {
-    Radios, Prisma, prisma
+    Radios, Prisma, PrismaClient
 } from '@prisma/client';
 import { env } from 'process';
 
@@ -18,6 +18,10 @@ const createRadioAndPost = (
         url_img,
     })
 }
+
+const prisma = new PrismaClient({
+    rejectOnNotFound: true,
+})
 
 @Injectable()
 export class RadiosService {
@@ -36,12 +40,14 @@ export class RadiosService {
         return this.prisma.radios.findMany();
     };
 
-    async findOne(id: number): Promise<Radios> {
-        return this.prisma.radios.findFirst({
+    async findOne(id: number): Promise<Radios | null> {
+        const newLocal = this.prisma.radios.findFirst({
             where: {
                 id: id
             }
-        });
+        })
+        return newLocal;
+
     };
 
     async findAllOrderBy(by: string): Promise<Radios[] | null> {
@@ -51,7 +57,6 @@ export class RadiosService {
                     name: by === 'desc' ? 'desc' : 'asc',
                 },
             ],
-
         })
     };
 
