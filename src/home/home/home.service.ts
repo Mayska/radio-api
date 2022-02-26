@@ -26,10 +26,11 @@ export class HomeService {
 
   constructor(private prisma: PrismaService) { }
 
+  //? Création d'un item 
   create(createHomeDto: Prisma.HomeCreateInput): Promise<Home | null> {
     return this.prisma.home.create({
       data: createHomeAndPost(createHomeDto.name,
-        createHomeDto.category,
+        this.convertToLowerCase(createHomeDto.category),
         createHomeDto.url,
         createHomeDto.url_img,
         true
@@ -37,10 +38,12 @@ export class HomeService {
     });
   }
 
+  //? Récupére tous les items
   findAll(): Promise<Home[] | null> {
     return this.prisma.home.findMany();
   }
 
+  //? Récupére une liste de category de chaque item
   findAllCategory(): Promise<any[] | null> {
     return this.prisma.home.findMany({
       select: {
@@ -50,6 +53,7 @@ export class HomeService {
     });
   }
 
+  //? Récupére un item par avec un id
   findOne(id: number): Promise<Home | null> {
     return this.prisma.home.findFirst({
       where: {
@@ -58,14 +62,15 @@ export class HomeService {
     });
   }
 
+  //? MAJ d'un item par l'id
   update(id: number, updateHomeDto: UpdateHomeDto): Promise<Home | null> {
     return this.prisma.home.update({
       where: {
         id: id,
       },
       data: {
-        name: updateHomeDto.name,
-        category: updateHomeDto.category,
+        name: this.convertFirstUppercase(updateHomeDto.name),
+        category: this.convertToLowerCase(updateHomeDto.category),
         url: updateHomeDto.url,
         url_img: updateHomeDto.url_img,
         actif: {
@@ -75,6 +80,7 @@ export class HomeService {
     });
   }
 
+  //? supprime un item par l'id
   remove(id: number): Promise<Home | null> {
     return this.prisma.home.delete({
       where: {
@@ -83,6 +89,7 @@ export class HomeService {
     })
   }
 
+  //? Récupére une list d'item par sa category
   findByCategory(category: string): Promise<Home[] | null> {
     return this.prisma.home.findMany({
       where: {
@@ -91,5 +98,14 @@ export class HomeService {
       }
     })
   }
+
+  private convertToLowerCase(text: string): string {
+    return text.toLowerCase()
+  }
+
+  private convertFirstUppercase(text: string): string {
+    return text[0].toUpperCase() + text.slice(1)
+  }
+
 }
 

@@ -25,7 +25,7 @@ export class HomeController {
 
   @Get('/category/:category')
   findByCategory(@Param('category') category: string) {
-    console.log('/category/:category')
+    category = category.toLowerCase();
     if (category === 'home' || category === 'tv' || category === 'utilitaire' || category === 'favori') {
       return this.homeService.findByCategory(category);
     }
