@@ -99,10 +99,12 @@ export class HomeService {
     })
   }
 
+  // conversion de 'AAAA' en 'aaaa'
   private convertToLowerCase(text: string): string {
     return text.toLowerCase()
   }
 
+  // conversion de 'aaaa' en 'Aaaa'
   private convertFirstUppercase(text: string): string {
     return text[0].toUpperCase() + text.slice(1)
   }
