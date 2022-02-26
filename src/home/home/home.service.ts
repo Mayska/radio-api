@@ -86,7 +86,8 @@ export class HomeService {
   findByCategory(category: string): Promise<Home[] | null> {
     return this.prisma.home.findMany({
       where: {
-        category: category
+        category: category,
+        actif: true
       }
     })
   }
