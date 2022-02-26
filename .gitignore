@@ -3,6 +3,8 @@ run.bat
 run-front.bat
 /dist
 /node_modules
+/prisma
+/prisma/dev.db
 
 # Logs
 logs
